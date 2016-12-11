@@ -28,7 +28,7 @@ function draw_debug()
     lg.print(string.format("FPS: %f", fps), x, y)
     y = y + 16
 
-    lg.print(string.format("Frametime: %f", delta), x, y)
+    lg.print(string.format("Frametime: %f ms", delta * 1000), x, y)
     y = y + 16
 
     lg.print(string.format("Memory Usage (kB): %d", kb_of_mem), x, y)

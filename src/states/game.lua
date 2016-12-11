@@ -20,7 +20,11 @@ inputSystem.filter = tiny.requireAll("intents")
 
 inputSystem.keys = {
 
-    w = "forward"
+    w = "forward",
+    a = "left",
+    s = "backward",
+    d = "right",
+    lshift = "sprint"
 
 }
 
@@ -54,6 +58,13 @@ function characterDrawingSystem:process(e, dt)
 
 end
 
+local characterMovementSystem = tiny.processingSystem()
+characterMovementSystem.filter = tiny.requireAll("p_x", "p_y", "smul")
+
+function characterMovementSystem:process(e, dt)
+
+end
+
 -- entity definitions go here
 
 local units = {
@@ -72,10 +83,25 @@ local units = {
             -- movement speed, pixels per second
             pps = 32,
 
+            -- sprint mul
+            smul = 1,
+
             -- input shite?
             intents = {
                 forward = function(self, dt)
-                    self.p_x = self.p_x + 1 * (self.pps * dt)
+                    self.p_y = self.p_y - 1 * ((self.pps * self.smul) * dt)
+                end,
+                backward = function(self, dt)
+                    self.p_y = self.p_y + 1 * ((self.pps * self.smul) * dt)
+                end,
+                left = function(self, dt)
+                    self.p_x = self.p_x - 1 * ((self.pps * self.smul) * dt)
+                end,
+                right = function(self, dt)
+                    self.p_x = self.p_x + 1 * ((self.pps * self.smul) * dt)
+                end,
+                sprint = function(self, dt)
+                    self.smul = 8
                 end
             },
 
@@ -120,7 +146,6 @@ function game:init()
     )
 
     local new_player = units.player(128, 128)
-
     self.world:add(new_player)
 
 end
@@ -152,6 +177,10 @@ function game:draw()
 end
 
 function game:enter(from_state)
+
+end
+
+function game:leave()
 
 end
 

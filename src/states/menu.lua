@@ -20,12 +20,6 @@ function menu:init()
 
 end
 
-function menu:enter(from_state)
-
-    print("entered menu, from state: ", from_state)
-
-end
-
 function menu:keypressed(key, scancode, isrepeat)
 
     if key == "space" then
@@ -44,6 +38,16 @@ function menu:draw()
     local hsz = 4 * 12
 
     lg.print("Hello, World!", w/2 - hsz, h/2 - 12)
+
+end
+
+function menu:enter(from_state)
+
+    print("entered menu, from state: ", from_state)
+
+end
+
+function menu:leave()
 
 end
 
