@@ -65,12 +65,17 @@ local units = {
             health = 100,
             p_x = x, p_y = y,
             v_x = 0, v_y = 0,
+            d_x = 0, d_y = -1,
+
             mass = 10, -- 10 what?
+
+            -- movement speed, pixels per second
+            pps = 32,
 
             -- input shite?
             intents = {
                 forward = function(self, dt)
-                    print "pressed forward!"
+                    self.p_x = self.p_x + 1 * (self.pps * dt)
                 end
             },
 
