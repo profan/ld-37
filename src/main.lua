@@ -50,13 +50,18 @@ end
 
 local GameState = require "states.game"
 local MenuState = require "states.menu"
+local PauseState = require "states.pause"
 
 -- love functions go here
 
 function love.load()
 
     -- create menu states and stuff
+    local pause_state = PauseState()
+
     local game_state = GameState()
+    game_state.pause_state = pause_state
+
     local menu_state = MenuState()
     menu_state.game_state = game_state
     -- what the fucl

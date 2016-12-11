@@ -7,6 +7,14 @@ function game:init()
 
 end
 
+function game:keypressed(key, scancode, isrepeat)
+
+    if key == "p" then
+        Gamestate.push(self.pause_state)
+    end
+
+end
+
 function game:update(dt)
 
 end
