@@ -15,6 +15,25 @@ local map_data = require "level"
 local updateSystemFilter = tiny.rejectAll("is_drawing_system")
 local drawSystemFilter = tiny.requireAll("is_drawing_system")
 
+local inputSystem = tiny.processingSystem()
+inputSystem.filter = tiny.requireAll("intents")
+
+inputSystem.keys = {
+
+    w = "forward"
+
+}
+
+function inputSystem:process(e, dt)
+
+    for key, intent in pairs(self.keys) do
+        if love.keyboard.isDown(key) then
+            e.intents[intent](e, dt)
+        end
+    end
+
+end
+
 local physicsSystem = tiny.processingSystem()
 physicsSystem.filter = tiny.requireAll("p_x", "p_y", "v_x", "v_y", "mass")
 function physicsSystem:process(e, dt)
@@ -47,6 +66,13 @@ local units = {
             p_x = x, p_y = y,
             v_x = 0, v_y = 0,
             mass = 10, -- 10 what?
+
+            -- input shite?
+            intents = {
+                forward = function(self, dt)
+                    print "pressed forward!"
+                end
+            },
 
             -- colour for drawing, sorta cornflower blue (0x428bca)
             d_w = 16, d_h = 16,
@@ -83,6 +109,7 @@ function game:init()
 
     -- worlds an fuck
     self.world = tiny.world(
+        inputSystem,
         physicsSystem,
         characterDrawingSystem
     )
