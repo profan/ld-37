@@ -2,6 +2,11 @@
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="16" tileheight="16" nextobjectid="1">
  <tileset firstgid="1" name="tiles" tilewidth="16" tileheight="16" spacing="1" tilecount="2" columns="2">
   <image source="../src/resources/tiles.png" width="33" height="16"/>
+  <tile id="0">
+   <properties>
+    <property name="collidable" type="bool" value="true"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="Tile Layer 1" width="64" height="64">
   <data encoding="csv">

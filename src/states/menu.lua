@@ -1,7 +1,20 @@
 -- shortforms
 local lg = love.graphics
 
-local menu = Class {}
+local menu = {}
+
+function menu:new(game_state)
+
+    local new_obj = {}
+
+    new_obj.game_state = game_state
+
+    setmetatable(new_obj, self)
+    self.__index = self
+
+    return new_obj
+
+end
 
 function menu:init()
 

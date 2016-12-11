@@ -2,7 +2,18 @@
 local lg = love.graphics
 local lw = love.window
 
-local pause = Class {}
+local pause = {}
+
+function pause:new()
+
+    local new_obj = {}
+
+    setmetatable(new_obj, self)
+    self.__index = self
+
+    return new_obj
+
+end
 
 -- dont give this args
 function pause:init()

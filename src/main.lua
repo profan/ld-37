@@ -1,6 +1,7 @@
 -- global shite
 
 require "defines"
+TileMap = require "tilemap"
 
 -- states shit
 
@@ -35,17 +36,6 @@ function draw_debug()
 
 end
 
-TileMap = require "tilemap"
-
-local map_data = require "level"
-local map = TileMap(map_data, nil)
-
-function draw_game()
-
-    map:draw()
-
-end
-
 -- game states?
 
 local GameState = require "states.game"
@@ -57,14 +47,9 @@ local PauseState = require "states.pause"
 function love.load()
 
     -- create menu states and stuff
-    local pause_state = PauseState()
-
-    local game_state = GameState()
-    game_state.pause_state = pause_state
-
-    local menu_state = MenuState()
-    menu_state.game_state = game_state
-    -- what the fucl
+    local pause_state = PauseState:new()
+    local game_state = GameState:new(pause_state)
+    local menu_state = MenuState:new(game_state)
 
     -- set up initial state
     Gamestate.switch(menu_state)

@@ -2,6 +2,20 @@ local lg = love.graphics
 
 local tilemap = Class {}
 
+local function make_property_map(tiles, property)
+
+    property_map = {}
+
+    for i, e in ipairs(tiles) do
+        if e.properties and e.properties[property] then
+            self.property_map[e.id + 1] = true
+        end
+    end
+
+    return property_map
+
+end
+
 function tilemap:init(data, resources)
 
     -- only tileset we care about
@@ -11,12 +25,10 @@ function tilemap:init(data, resources)
     self.texture = lg.newImage("resources/tiles.png")
 
     -- collidable tiles map
-    self.collidable_tiles = {}
-    for i, e in ipairs(tileset.tiles) do
-        if e.properties and e.properties.collidable then
-            self.collidable_tiles[e.id + 1] = true
-        end
-    end
+    self.collidable_tiles = make_property_map(tileset.tiles, 'collidable')
+
+    -- movable tiles map
+    self.movable_tiles = make_property_map(tileset.tiles, 'movable')
 
     -- get image width/height for texture
     self.texture_width = tileset.imagewidth
